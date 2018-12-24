@@ -245,10 +245,10 @@ class TableExamplePagination extends Component {
             onChangeTotal={this.changeTotal}
             players={this.state}
             onChangePlayerValue={this.changePlayerValue}
-            options={optionsKJ}
+            options={optionsQueens}
             activeGame={state.activeGame}
-            no={'Kings & Jacks'}
-            each={-5}
+            no={'Jacks'}
+            each={-10}
             total={-40}
           />
           <TableRow
@@ -259,7 +259,7 @@ class TableExamplePagination extends Component {
             onChangePlayerValue={this.changePlayerValue}
             options={optionsKing}
             activeGame={state.activeGame}
-            no={'King of Hearts'}
+            no={'King'}
             each={-40}
             total={-40}
           />

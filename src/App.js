@@ -45,7 +45,7 @@ class App extends Component {
     }
   }
 
-  addNewPlayers = names => {
+  addNewPlayers = async names => {
     const playerNmes = Object.values(names)
     // console.log(playerNmes)
     let no = 0
@@ -67,8 +67,8 @@ class App extends Component {
             { no: 3, game: 'Tricks-', played: false },
             { no: 4, game: 'Hearts', played: false },
             { no: 5, game: 'Queens', played: false },
-            { no: 6, game: 'Kings & Jacks', played: false },
-            { no: 7, game: 'King of Hearts', played: false },
+            { no: 6, game: 'Jacks', played: false },
+            { no: 7, game: 'King', played: false },
             { no: 8, game: 'Last 2 Tricks', played: false }
           ],
           score: 0
@@ -78,7 +78,9 @@ class App extends Component {
     console.log(players)
 
     // const players = [{ ...this.state.players, newPlayer }]
-    this.setState({ players })
+    await this.setState({ players })
+    window.location.reload()
+    // location.reload();
   }
 
   selectNewGame = (activeGame, playerName) => {
