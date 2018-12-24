@@ -49,28 +49,33 @@ class App extends Component {
     const playerNmes = Object.values(names)
     // console.log(playerNmes)
     let no = 0
-    const players = playerNmes.map(name => {
-      // console.log(name)
-      const randomName = `Player-${Math.floor(Math.random() * Math.floor(999))}`
-      const newName = name != '' ? name : randomName
-      no++
-      return {
-        no,
-        name: newName,
-        games: [
-          { no: 1, game: 'Tricks+', played: false },
-          { no: 2, game: 'Tricks++', played: false },
-          { no: 3, game: 'Tricks-', played: false },
-          { no: 4, game: 'Hearts', played: false },
-          { no: 5, game: 'Queens', played: false },
-          { no: 6, game: 'Kings & Jacks', played: false },
-          { no: 7, game: 'King of Hearts', played: false },
-          { no: 8, game: 'Last 2 Tricks', played: false }
-        ],
-        score: 0
-      }
-    })
-    // console.log(players)
+    const players = playerNmes
+      .map(name => {
+        // console.log(name)
+        const randomName = `Player-${Math.floor(
+          Math.random() * Math.floor(999)
+        )}`
+        // const newName = name != '' ? name : return
+        if (name === '') return
+        no++
+        return {
+          no,
+          name,
+          games: [
+            { no: 1, game: 'Tricks+', played: false },
+            { no: 2, game: 'Tricks++', played: false },
+            { no: 3, game: 'Tricks-', played: false },
+            { no: 4, game: 'Hearts', played: false },
+            { no: 5, game: 'Queens', played: false },
+            { no: 6, game: 'Kings & Jacks', played: false },
+            { no: 7, game: 'King of Hearts', played: false },
+            { no: 8, game: 'Last 2 Tricks', played: false }
+          ],
+          score: 0
+        }
+      })
+      .filter(i => i !== undefined)
+    console.log(players)
 
     // const players = [{ ...this.state.players, newPlayer }]
     this.setState({ players })
@@ -105,18 +110,17 @@ class App extends Component {
       const withoutPlayer = this.state.players.filter(
         p => p.name !== playerName
       )
-
-      console.log(newPlayerData)
+      // console.log(newPlayerData)
 
       const players = [...withoutPlayer, newPlayerData].sort(
         (a, b) => a.no - b.no
       )
-      console.log(players)
+      // console.log(players)
       this.setState({ players, activeGame, finished: false })
     }
   }
   changeTotalScore = data => {
-    console.log(data)
+    // console.log(data)
     const players = this.state.players.map(player => {
       if (player.name === data[0].name) {
         const score = player.score + data[0].score
@@ -135,9 +139,11 @@ class App extends Component {
         return { ...player, score }
       }
     })
+    const totalPlayers = this.state.players.length
     let currentTurn = this.state.turn
-    const turn = currentTurn >= 1 && currentTurn < 4 ? ++currentTurn : 1
-    console.log(turn)
+    const turn =
+      currentTurn >= 1 && currentTurn < totalPlayers ? ++currentTurn : 1
+    // console.log(turn)
     this.setState({ players, activeGame: null, finished: true, turn })
   }
 

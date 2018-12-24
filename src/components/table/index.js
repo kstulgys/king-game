@@ -135,11 +135,13 @@ class TableExamplePagination extends Component {
         name: this.props.state.players[2].name,
         score: this.state.player3.value
       },
-      {
+      this.props.state.players[3] && {
         name: this.props.state.players[3].name,
         score: this.state.player4.value
       }
     ]
+
+    const filterData = data.filter(i => i !== null)
 
     this.props.onChangeTotalScore(data)
     const state = {
@@ -186,8 +188,8 @@ class TableExamplePagination extends Component {
             options={optionsTricks}
             activeGame={state.activeGame}
             no={'Tricks+'}
-            each={20}
-            total={260}
+            each={12}
+            total={120}
           />
           <TableRow
             onGameComplete={this.gameComplete}
@@ -198,8 +200,8 @@ class TableExamplePagination extends Component {
             options={optionsTricks}
             activeGame={state.activeGame}
             no={'Tricks++'}
-            each={20}
-            total={260}
+            each={12}
+            total={120}
           />
           <TableRow
             onGameComplete={this.gameComplete}
@@ -210,8 +212,8 @@ class TableExamplePagination extends Component {
             options={optionsTricks}
             activeGame={state.activeGame}
             no={'Tricks-'}
-            each={-20}
-            total={-260}
+            each={-4}
+            total={-40}
           />
           <TableRow
             onGameComplete={this.gameComplete}
@@ -219,11 +221,11 @@ class TableExamplePagination extends Component {
             onChangeTotal={this.changeTotal}
             players={this.state}
             onChangePlayerValue={this.changePlayerValue}
-            options={optionsTricks}
+            options={optionsKJ}
             activeGame={state.activeGame}
             no={'Hearts'}
-            each={-20}
-            total={-260}
+            each={-5}
+            total={-40}
           />
           <TableRow
             onGameComplete={this.gameComplete}
@@ -234,8 +236,8 @@ class TableExamplePagination extends Component {
             options={optionsQueens}
             activeGame={state.activeGame}
             no={'Queens'}
-            each={-50}
-            total={-200}
+            each={-10}
+            total={-40}
           />
           <TableRow
             onGameComplete={this.gameComplete}
@@ -246,8 +248,8 @@ class TableExamplePagination extends Component {
             options={optionsKJ}
             activeGame={state.activeGame}
             no={'Kings & Jacks'}
-            each={-30}
-            total={-240}
+            each={-5}
+            total={-40}
           />
           <TableRow
             onGameComplete={this.gameComplete}
@@ -258,8 +260,8 @@ class TableExamplePagination extends Component {
             options={optionsKing}
             activeGame={state.activeGame}
             no={'King of Hearts'}
-            each={-160}
-            total={-160}
+            each={-40}
+            total={-40}
           />
           <TableRow
             onGameComplete={this.gameComplete}
@@ -270,8 +272,8 @@ class TableExamplePagination extends Component {
             options={optionsTwo}
             activeGame={state.activeGame}
             no={'Last 2 Tricks'}
-            each={-90}
-            total={-180}
+            each={-20}
+            total={-40}
           />
 
           {/* <Table.Row>

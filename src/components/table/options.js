@@ -9,10 +9,7 @@ export const optionsTricks = [
   { text: '7', value: 7 },
   { text: '8', value: 8 },
   { text: '9', value: 9 },
-  { text: '10', value: 10 },
-  { text: '11', value: 11 },
-  { text: '12', value: 12 },
-  { text: '13', value: 13 }
+  { text: '10', value: 10 }
 ]
 
 export const optionsQueens = [
