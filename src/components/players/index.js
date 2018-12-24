@@ -2,9 +2,17 @@ import React from 'react'
 import { Header, Image, Table, Label, Divider, Button } from 'semantic-ui-react'
 import PlayersModal from '../players-modal'
 
-const GameLabel = ({ game, played, onSelectNewGame, name, finished }) => (
+const GameLabel = ({
+  game,
+  played,
+  onSelectNewGame,
+  name,
+  finished,
+  turn,
+  no
+}) => (
   <Label
-    onClick={finished ? () => onSelectNewGame(game, name) : null}
+    onClick={finished && turn === no ? () => onSelectNewGame(game, name) : null}
     circular
     color={`${played ? 'grey' : 'red'}`}
     className='pointer'
@@ -13,10 +21,18 @@ const GameLabel = ({ game, played, onSelectNewGame, name, finished }) => (
   </Label>
 )
 
-const PlayerRow = ({ turn, name, games, score, onSelectNewGame, finished }) => (
+const PlayerRow = ({
+  turn,
+  no,
+  name,
+  games,
+  score,
+  onSelectNewGame,
+  finished
+}) => (
   <Table.Row>
     <Table.Cell>
-      {turn && <Label color='teal' ribbon />}
+      {turn == no && <Label color='teal' ribbon />}
       <Header as='h4' image>
         <Image
           src={`https://api.adorable.io/avatars/285/${name}.io.png`}
@@ -30,6 +46,8 @@ const PlayerRow = ({ turn, name, games, score, onSelectNewGame, finished }) => (
       {games &&
         games.map(g => (
           <GameLabel
+            turn={turn}
+            no={no}
             finished={finished}
             name={name}
             onSelectNewGame={onSelectNewGame}
@@ -63,10 +81,10 @@ const TableExampleCollapsing = ({
     <Table.Body>
       <PlayersModal onAddNewPlayers={onAddNewPlayers} players={state.players} />
       {state.players.map(n => {
-        console.log(state)
         return (
           <PlayerRow
-            turn={state.turn == n.no}
+            turn={state.turn}
+            no={n && n.no}
             finished={state.finished}
             onSelectNewGame={onSelectNewGame}
             key={n && n.name}

@@ -118,7 +118,7 @@ class App extends Component {
         (a, b) => a.no - b.no
       )
       // console.log(players)
-      this.setState({ players, activeGame, finished: false })
+      this.setState({ players, activeGame, finished: !this.state.finished })
     }
   }
   changeTotalScore = data => {
@@ -142,11 +142,17 @@ class App extends Component {
       }
     })
     const totalPlayers = this.state.players.length
+    // console.log(totalPlayers)
     let currentTurn = this.state.turn
     const turn =
       currentTurn >= 1 && currentTurn < totalPlayers ? ++currentTurn : 1
-    // console.log(turn)
-    this.setState({ players, activeGame: null, finished: true, turn })
+    console.log(turn)
+    this.setState({
+      players,
+      activeGame: null,
+      finished: !this.state.finished,
+      turn
+    })
   }
 
   render() {
