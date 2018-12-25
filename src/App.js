@@ -79,7 +79,6 @@ class App extends Component {
     // const players = [{ ...this.state.players, newPlayer }]
     this.setState({ players })
     window.location.reload()
-    // location.reload();
   }
 
   selectNewGame = (activeGame, playerName) => {
@@ -120,6 +119,7 @@ class App extends Component {
       this.setState({ players, activeGame, finished: !this.state.finished })
     }
   }
+
   changeTotalScore = data => {
     // console.log(data)
     // const game = data.game

@@ -19,7 +19,15 @@ const GameLabel = ({
     as='a'
     size='big'
   >
-    <div>{result && result.map(r => <span>{r}/</span>)}</div>
+    <div>
+      {result &&
+        result.map((r, i) => (
+          <span>
+            {r}
+            {(i === 0 || i === 1) && '|'}
+          </span>
+        ))}
+    </div>
     <span>{game}</span>
   </Label>
 )
@@ -73,33 +81,50 @@ const TableExampleCollapsing = ({
   onAddNewPlayers,
   onSelectNewGame
 }) => (
-  <Table basic='very' celled collapsing>
-    <Table.Header>
-      <Table.Row>
-        <Table.HeaderCell>Players</Table.HeaderCell>
-        <Table.HeaderCell>Games</Table.HeaderCell>
-        <Table.HeaderCell>Score</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
-
-    <Table.Body>
-      <PlayersModal onAddNewPlayers={onAddNewPlayers} players={state.players} />
-      {state.players.map(n => {
-        return (
-          <PlayerRow
-            turn={state.turn}
-            no={n && n.no}
-            finished={state.finished}
-            onSelectNewGame={onSelectNewGame}
-            key={n && n.name}
-            name={n && n.name}
-            games={n && n.games}
-            score={n && n.score}
-          />
+  <div className='flex flex-column'>
+    <Button
+      content='Reset Game'
+      onClick={() => {
+        const r = window.confirm(
+          `Do you really want to reset this game? All data will be lost`
         )
-      })}
-    </Table.Body>
-  </Table>
+        if (r == true) {
+          localStorage.clear()
+          window.location.reload()
+        }
+      }}
+    />
+    <Table basic='very' celled collapsing>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Players</Table.HeaderCell>
+          <Table.HeaderCell>Games</Table.HeaderCell>
+          <Table.HeaderCell>Score</Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+
+      <Table.Body>
+        <PlayersModal
+          onAddNewPlayers={onAddNewPlayers}
+          players={state.players}
+        />
+        {state.players.map(n => {
+          return (
+            <PlayerRow
+              turn={state.turn}
+              no={n && n.no}
+              finished={state.finished}
+              onSelectNewGame={onSelectNewGame}
+              key={n && n.name}
+              name={n && n.name}
+              games={n && n.games}
+              score={n && n.score}
+            />
+          )
+        })}
+      </Table.Body>
+    </Table>
+  </div>
 )
 
 export default TableExampleCollapsing
