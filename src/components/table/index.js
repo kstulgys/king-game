@@ -84,7 +84,7 @@ const TableRow = ({
       </h4>
       <div>
         <Button
-          onClick={() => onGameComplete()}
+          onClick={() => onGameComplete(activeGame)}
           color='teal'
           disabled={!(activeGame == no && currentTotal === total)}
         >
@@ -121,21 +121,25 @@ class TableExamplePagination extends Component {
     this.setState({ currentTotal })
   }
 
-  gameComplete = () => {
+  gameComplete = activeGame => {
     const data = [
       {
+        activeGame,
         name: this.props.state.players[0].name,
         score: this.state.player1.value
       },
       {
+        activeGame,
         name: this.props.state.players[1].name,
         score: this.state.player2.value
       },
       {
+        activeGame,
         name: this.props.state.players[2].name,
         score: this.state.player3.value
       },
       this.props.state.players[3] && {
+        activeGame,
         name: this.props.state.players[3].name,
         score: this.state.player4.value
       }
@@ -271,7 +275,7 @@ class TableExamplePagination extends Component {
             onChangePlayerValue={this.changePlayerValue}
             options={optionsTwo}
             activeGame={state.activeGame}
-            no={'Last 2 Tricks'}
+            no={'Last 2'}
             each={-20}
             total={-40}
           />

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Header, Image, Table, Label, Divider, Button } from 'semantic-ui-react'
 import PlayersModal from '../players-modal'
 
 const GameLabel = ({
+  result,
   game,
   played,
   onSelectNewGame,
@@ -15,9 +16,11 @@ const GameLabel = ({
     onClick={finished && turn === no ? () => onSelectNewGame(game, name) : null}
     circular
     color={`${played ? 'grey' : 'red'}`}
-    className='pointer'
+    as='a'
+    size='big'
   >
-    {game}
+    <div>{result && result.map(r => <span>{r}/</span>)}</div>
+    <span>{game}</span>
   </Label>
 )
 
@@ -42,10 +45,11 @@ const PlayerRow = ({
         <Header.Content>{name}</Header.Content>
       </Header>
     </Table.Cell>
-    <Table.Cell textAlign='left'>
+    <Table.Cell>
       {games &&
         games.map(g => (
           <GameLabel
+            result={g.result && g.result}
             turn={turn}
             no={no}
             finished={finished}
