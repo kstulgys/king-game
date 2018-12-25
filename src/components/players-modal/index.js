@@ -9,8 +9,17 @@ class FormContent extends Component {
     player4: ''
   }
 
+  // disableFromSubmit = () => {
+  //   const namesLength = Object.values(this.state).filter(n => n !== '').length >= 3 && false
+  //   // console.log(namesLength)
+  //   return namesLength >= 3 && true
+  // }
+
   render() {
-    console.log(this.state)
+    // console.log(this.state)
+    const isValid =
+      Object.values(this.state).filter(n => n !== '').length < 3 ? true : false
+    // console.log(isValid)
     return (
       <Form className='pa5' size='large'>
         <Form.Group unstackable widths={2}>
@@ -38,7 +47,9 @@ class FormContent extends Component {
           />
         </Form.Group>
         <Button
+          disabled={isValid}
           type='submit'
+          color='teal'
           onClick={() => this.props.onAddNewPlayers(this.state)}
         >
           Submit

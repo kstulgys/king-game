@@ -46,9 +46,10 @@ class App extends Component {
   }
 
   addNewPlayers = names => {
-    const playerNmes = Object.values(names)
+    const playerNames = Object.values(names)
+
     let no = 0
-    const players = playerNmes
+    const players = playerNames
       .map(name => {
         // console.log(name)
         // const randomName = `Player-${Math.floor(
