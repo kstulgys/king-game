@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, useEffect } from 'react'
 import logo from './logo.svg'
 import KingTable from './components/table'
 import Players from './components/players'
@@ -10,7 +10,8 @@ class App extends Component {
     activeGame: null,
     turn: 1,
     finished: true,
-    players: []
+    players: [],
+    totalPlayers: 0
   }
 
   saveToLocalStorage = state => {
@@ -33,21 +34,21 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    const persistedState = this.loadFromLocalStorage()
-    if (persistedState) {
-      this.setState(persistedState)
-    }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState !== this.state) {
-      this.saveToLocalStorage(this.state)
-    }
-  }
+  // componentDidMount() {
+  //   const persistedState = this.loadFromLocalStorage()
+  //   if (persistedState) {
+  //     this.setState(persistedState)
+  //   }
+  // }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState !== this.state) {
+  //     this.saveToLocalStorage(this.state)
+  //   }
+  // }
 
   addNewPlayers = names => {
     const playerNames = Object.values(names)
-
+    const totalPlayers = playerNames.length
     let no = 0
     const players = playerNames
       .map(name => {
@@ -71,6 +72,7 @@ class App extends Component {
             { no: 7, game: 'King', played: false, result: [] },
             { no: 8, game: 'Last 2', played: false, result: [] }
           ],
+          // currentGameScore: 0,
           score: 0
         }
       })
@@ -78,7 +80,7 @@ class App extends Component {
     // console.log(players)
 
     // const players = [{ ...this.state.players, newPlayer }]
-    this.setState({ players })
+    this.setState({ players, totalPlayers })
     window.location.reload()
   }
 

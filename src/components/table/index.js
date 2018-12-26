@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Icon, Label, Menu, Table, Dropdown, Button } from 'semantic-ui-react'
 import {
   optionsTricks,
@@ -32,6 +32,7 @@ const TableCell = ({
 )
 
 const TableRow = ({
+  totalPlayers,
   onGameComplete,
   no,
   each,
@@ -70,14 +71,16 @@ const TableRow = ({
       playerValue={activeGame === no ? players.player3.value : '-'}
       onChangePlayerValue={onChangePlayerValue}
     />
-    <TableCell
-      onChangeTotal={onChangeTotal}
-      each={each}
-      playerName={players && players.player4.name}
-      options={options}
-      playerValue={activeGame === no ? players.player4.value : '-'}
-      onChangePlayerValue={onChangePlayerValue}
-    />
+    {totalPlayers === 4 && (
+      <TableCell
+        onChangeTotal={onChangeTotal}
+        each={each}
+        playerName={players && players.player4.name}
+        options={options}
+        playerValue={activeGame === no ? players.player4.value : '-'}
+        onChangePlayerValue={onChangePlayerValue}
+      />
+    )}
     <Table.Cell>
       <h4>
         {currentTotal}/{total}
@@ -166,24 +169,24 @@ class TableExamplePagination extends Component {
           <Table.Row>
             <Table.HeaderCell>Game</Table.HeaderCell>
             <Table.HeaderCell>Each</Table.HeaderCell>
-            <Table.HeaderCell>
-              {state.players[0] ? state.players[0].name : 'player-1'}
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              {state.players[1] ? state.players[1].name : 'player-2'}
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              {state.players[2] ? state.players[2].name : 'player-3'}
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              {state.players[3] ? state.players[3].name : 'player-4'}
-            </Table.HeaderCell>
-            <Table.HeaderCell>Hands Total</Table.HeaderCell>
+            {state.totalPlayers === 0 ? (
+              <Fragment>
+                <Table.HeaderCell>Player-1</Table.HeaderCell>
+                <Table.HeaderCell>Player-2</Table.HeaderCell>
+                <Table.HeaderCell>Player-3</Table.HeaderCell>
+              </Fragment>
+            ) : (
+              state.players.map(p => (
+                <Table.HeaderCell>{p && p.name}</Table.HeaderCell>
+              ))
+            )}
+            <Table.HeaderCell>Total</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           <TableRow
+            totalPlayers={state.totalPlayers}
             onGameComplete={this.gameComplete}
             currentTotal={this.state.currentTotal}
             onChangeTotal={this.changeTotal}
@@ -196,6 +199,7 @@ class TableExamplePagination extends Component {
             total={120}
           />
           <TableRow
+            totalPlayers={state.totalPlayers}
             onGameComplete={this.gameComplete}
             currentTotal={this.state.currentTotal}
             onChangeTotal={this.changeTotal}
@@ -208,6 +212,7 @@ class TableExamplePagination extends Component {
             total={120}
           />
           <TableRow
+            totalPlayers={state.totalPlayers}
             onGameComplete={this.gameComplete}
             currentTotal={this.state.currentTotal}
             onChangeTotal={this.changeTotal}
@@ -220,6 +225,7 @@ class TableExamplePagination extends Component {
             total={-40}
           />
           <TableRow
+            totalPlayers={state.totalPlayers}
             onGameComplete={this.gameComplete}
             currentTotal={this.state.currentTotal}
             onChangeTotal={this.changeTotal}
@@ -232,6 +238,7 @@ class TableExamplePagination extends Component {
             total={-40}
           />
           <TableRow
+            totalPlayers={state.totalPlayers}
             onGameComplete={this.gameComplete}
             currentTotal={this.state.currentTotal}
             onChangeTotal={this.changeTotal}
@@ -244,6 +251,7 @@ class TableExamplePagination extends Component {
             total={-40}
           />
           <TableRow
+            totalPlayers={state.totalPlayers}
             onGameComplete={this.gameComplete}
             currentTotal={this.state.currentTotal}
             onChangeTotal={this.changeTotal}
@@ -256,6 +264,7 @@ class TableExamplePagination extends Component {
             total={-40}
           />
           <TableRow
+            totalPlayers={state.totalPlayers}
             onGameComplete={this.gameComplete}
             currentTotal={this.state.currentTotal}
             onChangeTotal={this.changeTotal}
@@ -268,6 +277,7 @@ class TableExamplePagination extends Component {
             total={-40}
           />
           <TableRow
+            totalPlayers={state.totalPlayers}
             onGameComplete={this.gameComplete}
             currentTotal={this.state.currentTotal}
             onChangeTotal={this.changeTotal}
