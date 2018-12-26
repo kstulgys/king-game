@@ -5,6 +5,32 @@ import Players from './components/players'
 import './App.css'
 import KH from './King_of_hearts.svg'
 
+// const saveToLocalStorage = state => {
+//   try {
+//     const serializedState = JSON.stringify(state)
+//     localStorage.setItem('state', serializedState)
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }
+
+// const loadFromLocalStorage = () => {
+//   try {
+//     const serializedState = localStorage.getItem('state')
+//     if (serializedState === null) return undefined
+//     return JSON.parse(serializedState)
+//   } catch (e) {
+//     console.log(e)
+//     return undefined
+//   }
+// }
+
+// const withUseEffect = () => {
+//   useEffect(() => {
+//     const state = loadFromLocalStorage()
+//   })
+// }
+
 class App extends Component {
   state = {
     activeGame: null,
@@ -34,30 +60,23 @@ class App extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   const persistedState = this.loadFromLocalStorage()
-  //   if (persistedState) {
-  //     this.setState(persistedState)
-  //   }
-  // }
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState !== this.state) {
-  //     this.saveToLocalStorage(this.state)
-  //   }
-  // }
+  componentDidMount() {
+    const persistedState = this.loadFromLocalStorage()
+    if (persistedState) {
+      this.setState(persistedState)
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      this.saveToLocalStorage(this.state)
+    }
+  }
 
   addNewPlayers = names => {
     const playerNames = Object.values(names)
-    const totalPlayers = playerNames.length
     let no = 0
     const players = playerNames
       .map(name => {
-        // console.log(name)
-        // const randomName = `Player-${Math.floor(
-        //   Math.random() * Math.floor(999)
-        // )}`
-        // const newName = name != '' ? name : return
-        if (name === '') return
         no++
         return {
           no,
@@ -72,16 +91,14 @@ class App extends Component {
             { no: 7, game: 'King', played: false, result: [] },
             { no: 8, game: 'Last 2', played: false, result: [] }
           ],
-          // currentGameScore: 0,
           score: 0
         }
       })
-      .filter(i => i !== undefined)
-    // console.log(players)
-
-    // const players = [{ ...this.state.players, newPlayer }]
+      .filter(i => i.name !== '')
+    const totalPlayers = players.length
+    // console.log('players', players)
     this.setState({ players, totalPlayers })
-    window.location.reload()
+    // window.location.reload()
   }
 
   selectNewGame = (activeGame, playerName) => {
@@ -220,7 +237,7 @@ class App extends Component {
       //   return { ...player, score }
       // }
     })
-    console.log(players)
+    // console.log(players)
     const totalPlayers = this.state.players.length
     let currentTurn = this.state.turn
     const turn =
@@ -235,6 +252,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.totalPlayers)
     return (
       <Fragment>
         <div className='flex justify-center mv5'>
@@ -248,10 +266,12 @@ class App extends Component {
           </div>
         </div>
         <div>
-          <KingTable
-            state={this.state}
-            onChangeTotalScore={this.changeTotalScore}
-          />
+          {this.state.totalPlayers && (
+            <KingTable
+              state={this.state}
+              onChangeTotalScore={this.changeTotalScore}
+            />
+          )}
         </div>
       </Fragment>
     )

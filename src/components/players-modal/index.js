@@ -64,7 +64,9 @@ export default function PlayersModal({ onAddNewPlayers, players }) {
   return (
     <Modal
       trigger={
-        players && players[0] ? null : <Button color='teal'>Add Players</Button>
+        players && players[0] ? null : (
+          <Button color='teal' content='Add Players' />
+        )
       }
       content={<FormContent onAddNewPlayers={onAddNewPlayers} />}
       // actions={['Snooze', { key: 'done', content: 'Done', positive: true }]}

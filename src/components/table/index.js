@@ -169,17 +169,10 @@ class TableExamplePagination extends Component {
           <Table.Row>
             <Table.HeaderCell>Game</Table.HeaderCell>
             <Table.HeaderCell>Each</Table.HeaderCell>
-            {state.totalPlayers === 0 ? (
-              <Fragment>
-                <Table.HeaderCell>Player-1</Table.HeaderCell>
-                <Table.HeaderCell>Player-2</Table.HeaderCell>
-                <Table.HeaderCell>Player-3</Table.HeaderCell>
-              </Fragment>
-            ) : (
+            {state.players &&
               state.players.map(p => (
-                <Table.HeaderCell>{p && p.name}</Table.HeaderCell>
-              ))
-            )}
+                <Table.HeaderCell key={p.no}>{p && p.name}</Table.HeaderCell>
+              ))}
             <Table.HeaderCell>Total</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
